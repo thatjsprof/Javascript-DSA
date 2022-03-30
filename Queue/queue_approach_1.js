@@ -5,6 +5,10 @@ class Queue {
     this.count = 0;
   }
 
+  getLowestCount() {
+    return this.lowestCount;
+  }
+
   enqueue(element) {
     this.items[this.count] = element;
     this.count++;
@@ -14,7 +18,6 @@ class Queue {
     const result = this.items[this.lowestCount];
     delete this.items[this.lowestCount];
     this.lowestCount++;
-    this.count--;
     return result;
   }
 
@@ -29,21 +32,38 @@ class Queue {
   }
 
   isEmpty() {
-    return this.count === 0;
+    return this.count - this.lowestCount === 0;
   }
 
   size() {
-    return this.count;
+    return this.count - this.lowestCount;
   }
 }
 
-const queue = new Queue();
+function hotPotato(list, num) {
+  const queue = new Queue();
+  const eliminatedGuys = [];
 
-queue.enqueue(12);
-queue.enqueue(24);
-queue.enqueue(36);
-queue.enqueue(48);
+  for (let i = 0; i < list.length; i++) {
+    queue.enqueue(list[i]);
+  }
 
-console.log(queue);
-console.log(queue.dequeue());
-console.log(queue.size());
+  while (queue.size() > 1) {
+    const lowestCount = queue.getLowestCount();
+
+    for (let i = lowestCount; i < num + lowestCount; i++) {
+      queue.enqueue(queue.dequeue());
+    }
+
+    eliminatedGuys.push(queue.dequeue());
+  }
+
+  return {
+    eliminatedGuys,
+    winner: queue.dequeue(),
+  };
+}
+
+const result = hotPotato([1, 2, 3, 4, 5, 6], 3);
+
+console.log(result);
