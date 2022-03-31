@@ -62,11 +62,11 @@ class Dequeue {
   }
 
   isEmpty() {
-    return this.count === 0;
+    return this.count - this.lowestCount === 0;
   }
 
   size() {
-    return this.count;
+    return this.count - this.lowestCount;
   }
 }
 
