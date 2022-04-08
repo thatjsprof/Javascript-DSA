@@ -1,8 +1,5 @@
 const { LinkedList } = require("./single_approach_1");
 
-const Compare = {
-  LESS_THAN: "",
-};
 class SortedLinkedList extends LinkedList {
   constructor(equalFn) {
     super(equalFn);
@@ -24,7 +21,7 @@ class SortedLinkedList extends LinkedList {
     for (; i < this.count && current; i++) {
       const compare = this.equalFn(element, current.element);
 
-      if (compare === Compare.LESS_THAN) {
+      if (compare) {
         return i;
       }
       current = current.next;

@@ -118,6 +118,8 @@ class CircularSingleLinkedList extends LinkedList {
     this.count++;
     return this.tail;
   }
+
+  insertAt(element) {}
 }
 
 const singleCircularLinkedList = new CircularSingleLinkedList(equalCheck);
