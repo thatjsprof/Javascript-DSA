@@ -1,11 +1,11 @@
-export class Node {
+class Node {
   constructor(element) {
     this.element = element;
     this.next = undefined;
   }
 }
 
-export class LinkedList {
+class LinkedList {
   constructor(equalFn) {
     this.count = 0;
     this.head = undefined;
@@ -139,3 +139,5 @@ newList.insertElementAt(6, 3);
 
 console.log(newList.indexOf(4));
 console.log(newList.getHead());
+
+module.exports = { Node, LinkedList, equalCheck };

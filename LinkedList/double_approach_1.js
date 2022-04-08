@@ -1,6 +1,6 @@
-import { Node, LinkedList } from "./single_approach_1";
+const { Node, LinkedList, equalCheck } = require("./single_approach_1");
 
-export class DoubleNode extends Node {
+class DoubleNode extends Node {
   constructor(element, next, prev) {
     super(element, next);
     this.prev = prev;
@@ -102,7 +102,7 @@ class DoubleLinkedList extends LinkedList {
 // if the index is count - 1
 // else if the index in between 0 and count - 1
 
-// const doubleLinkedList = new DoubleLinkedList(equalCheck);
+const doubleLinkedList = new DoubleLinkedList(equalCheck);
 
 // doubleLinkedList.push(1);
 // doubleLinkedList.push(2);
@@ -112,3 +112,5 @@ class DoubleLinkedList extends LinkedList {
 // doubleLinkedList.removeAt(4)
 
 // console.group(doubleLinkedList.getHead());
+
+module.exports = { DoubleNode, DoubleLinkedList };
