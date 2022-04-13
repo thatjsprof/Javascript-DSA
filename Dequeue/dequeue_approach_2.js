@@ -1,52 +1,56 @@
-class Deque{
-    items = [];
-    addToFront(item){//push
-        return this.items.push(item);
-    }
-    
-    addToBack(item){//unshift
-        return this.items.unshift(item);
-    }
-    
-    popFromFront(){//pop
-        return this.items.pop();
-    }
-    
-    popFromBack(){//shift
-        return this.items.shift()
-    }
+class Deque {
+  items = [];
+  addToFront(item) {
+    //push
+    return this.items.push(item);
+  }
 
-    isEmpty(){
-        return !Boolean(this.items.length);
-    }
+  addToBack(item) {
+    //unshift
+    return this.items.unshift(item);
+  }
 
-    size(){
-        return this.items.length;
-    }
+  popFromFront() {
+    //pop
+    return this.items.pop();
+  }
+
+  popFromBack() {
+    //shift
+    return this.items.shift();
+  }
+
+  isEmpty() {
+    return !Boolean(this.items.length);
+  }
+
+  size() {
+    return this.items.length;
+  }
 }
 
-function palindrome(word){
-    const deque = new Deque();
-    if(!word) return "undefined";
-    let trimmed = word.trim();
-    for(let i in trimmed){
-        trimmed[i] && deque.addToBack(trimmed[i]);
-    }
-    isPalindrome = true;
-    console.log("deque", deque)
-    
-    // madam
-    while(deque.size()>1 && isPalindrome){
-        let front;
-        let back;
-        front = deque.popFromBack();
-        back = deque.popFromFront();
-        if(front !== back){
-            isPalindrome = false;
-        }
-    }
+function palindrome(word) {
+  const deque = new Deque();
+  if (!word) return "undefined";
+  let trimmed = word.trim();
+  for (let i in trimmed) {
+    trimmed[i] && deque.addToBack(trimmed[i]);
+  }
+  isPalindrome = true;
+  console.log("deque", deque);
 
-    return isPalindrome;
+  // madam
+  while (deque.size() > 1 && isPalindrome) {
+    let front;
+    let back;
+    front = deque.popFromBack();
+    back = deque.popFromFront();
+    if (front !== back) {
+      isPalindrome = false;
+    }
+  }
+
+  return isPalindrome;
 }
 
 console.log(palindrome(""));
