@@ -2,6 +2,16 @@ function defaultEquals(a, b) {
   return a === b;
 }
 
+const Compare = {
+  LESS_THAN: -1,
+  BIGGER_THAN: 1,
+};
+
+function defaultCompareFn(a, b) {
+  if (a === b) return 0;
+  return a > b ? Compare.BIGGER_THAN : Compare.LESS_THAN;
+}
+
 class Node {
   constructor(element) {
     this.element = element;
@@ -158,7 +168,7 @@ class DoublyLinkedList extends LinkedList {
     this.tail = undefined;
   }
 
-  insert(element, index) {
+  insert(element, index = 0) {
     if (index >= 0 && index < this.count) {
       let node = new DoublyNode(element);
       let currentNode = this.head;
@@ -277,5 +287,56 @@ class CircularLinkedList extends LinkedList {
     }
 
     return undefined;
+  }
+}
+
+class SortedLinkedList extends LinkedList {
+  constructor(equalsFn = defaultEquals, compareFn = defaultCompareFn) {
+    super(equalsFn);
+    this.compareFn = compareFn;
+  }
+
+  insert(element, index = 0) {
+    // [ H{el, pointer} - {el, pointer} - {el, pointer} ]
+    // []
+    if (index >= 0 && index < this.count) {
+      if (this.isEmpty()) {
+        return super.insert(element, 0);
+      } else {
+        const pos = this.getIndexNextSortedElement(element);
+        return super.insert(element, pos);
+      }
+    }
+  }
+
+  getIndexNextSortedElement(element) {
+    let currentNode = this.head;
+
+    for (let i = 0; i < this.size(); i++) {
+      const comp = this.compareFn(element, currentNode.element);
+      if ((comp = Compare.LESS_THAN)) {
+        return i;
+      }
+      currentNode = currentNode.next;
+    }
+
+    return 0;
+  }
+}
+
+class StackedLinkedList {
+  constructor(equalsFn = defaultEquals) {
+    super(equalsFn);
+    this.items = new DoublyLinkedList();
+  }
+
+  push(element) {
+    return this.items.push(element);
+  }
+
+  pop() {
+    if (this.items.isEmpty()) return undefined;
+
+    return this.items.removeAt(this.items.size() - 1);
   }
 }
