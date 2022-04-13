@@ -93,3 +93,34 @@ class Deque {
     return objString;
   }
 }
+
+function palindromeChecker(aString) {
+  // return false for falsy string values
+  if (
+    aString === undefined ||
+    aString === null ||
+    (aString !== null && aString.length === 0)
+  ) {
+    return false;
+  }
+
+  // removes whitespace from string
+  let lowerCaseString = aString.toLocaleLowerCase().split(" ").join();
+  let isEqual = true;
+  let firstChar, lastChar;
+
+  let palindromeDeque = new Deque();
+
+  for (let i = 0; i < lowerCaseString.length; i++) {
+    palindromeDeque.addBack(lowerCaseString[i]);
+  }
+
+  while (palindromeDeque.size() > 1 && isEqual) {
+    firstChar = palindromeDeque.removeFront();
+    lastChar = palindromeDeque.removeBack();
+
+    if (firstChar !== lastChar) isEqual = false;
+  }
+
+  return isEqual;
+}
