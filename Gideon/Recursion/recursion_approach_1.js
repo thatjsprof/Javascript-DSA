@@ -25,3 +25,20 @@ function sumList(arr, length) {
 
   return arr[0] + sumList(arr.slice(1), length - 1);
 }
+
+function fibonacci(num) {
+  if (num < 1) return 0;
+  if (num <= 2) return 1;
+
+  return fibonacci(num - 1) + fibonacci(num - 2);
+}
+
+function fibonacciWithMemoisation(num) {
+  const memo = [0, 1];
+  const fibonacciFn = (num) => {
+    if (memo[num] != null) return memo[num];
+    return (memo[num] = fibonacci(num - 1) + fibonacci(num - 2));
+  };
+
+  return fibonacciFn(num);
+}
